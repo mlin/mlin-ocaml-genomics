@@ -1,0 +1,2 @@
+<*.ml> or <*.mli>: for-pack(Genomics.Sequence), pp(ocaml+twt)
+true: debug

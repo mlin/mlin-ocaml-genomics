@@ -1,0 +1,3 @@
+<*.ml> or <*.mli>: for-pack(Genomics), pp(ocaml+twt)
+<Alignment.*> or <Sequence.*> or <Annotation.*>: for-pack(Genomics)
+true: debug, pkg_batteries, pkg_sqlite3EZ, pkg_camlzip

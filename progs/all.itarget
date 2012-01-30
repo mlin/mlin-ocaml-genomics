@@ -1,0 +1,8 @@
+mafdb_import.native
+mafdb_query.native
+mafdb_merge.native
+sequencedb_import.native
+sequencedb_query.native
+gxfdb_import.native
+gxfdb_longest_isoforms.native
+wgadb_stitch.native

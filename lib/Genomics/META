@@ -1,0 +1,4 @@
+requires = "unix,str,batteries,sqlite3EZ,camlzip"
+description = "Mike Lin's genomics stuff"
+archive(byte)="Genomics.cma"
+archive(native)="Genomics.cmxa"
