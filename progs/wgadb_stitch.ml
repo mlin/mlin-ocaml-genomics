@@ -1,7 +1,7 @@
 (* TODO rework to use WGA *)
 
-open Batteries_uni
-open OptParse
+open Batteries
+open Extlib.OptParse
 open Printf
 open Genomics
 

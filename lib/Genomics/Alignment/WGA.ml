@@ -1,13 +1,11 @@
-open Batteries_uni
+open Batteries
 open Sqlite3EZ
-
-module StringMap = Map.StringMap
 
 type db = {
 	seqdb : Sequence.DB.t;
 	mafdb : MAF.DB.t;
 	default_ref_assembly : string option;
-	assembly_map : string StringMap.t option;
+	assembly_map : (string,string) Map.t option;
 	assembly_order : string array option
 }
 
@@ -49,8 +47,8 @@ let db_open ?(assembly_map="default") ?(lockless=false) fn =
 								
 					let assembly_map =
 						List.fold_left
-							fun map (assembly,name) -> StringMap.add assembly name map
-							StringMap.empty
+							fun map (assembly,name) -> Map.add assembly name map
+							Map.empty
 							data
 							
 					let default_ref_assembly = fst (List.hd data)
@@ -88,7 +86,7 @@ let src_transform = function
 		fun src ->
 			let asmbl = assembly_name src
 			try
-				StringMap.find asmbl assembly_map
+				Map.find asmbl assembly_map
 			with Not_found -> asmbl (*failwith (Printf.sprintf "Alignment.WGA.query_position: could not find %s in the assembly name map" src)*)
 
 let query_position ?missing_char { seqdb; mafdb; default_ref_assembly; assembly_map; assembly_order } pos = 

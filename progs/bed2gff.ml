@@ -3,7 +3,7 @@ Ocaml.packs := ["batteries"; "GxF"];;
 Ocaml.pp :=     Some (fun file -> let o = (Filename.chop_extension file) ^ ".pp.ml" in Pipeline.command ["ocaml+twt"; file; "-o"; o ], [o]);;
 Ocaml.ocamlflags := ["-g"]
 --
-open Batteries_uni;; open OptParse;; open Printf
+open Batteries;; open Extlib.OptParse;; open Printf
 
 let opt_parser = OptParser.make ~usage:"%prog [annotations1.bed annotations2.bed[.gz] ...]\nIf no filenames are specified, stdin is used." ()
 let opt ?group ?h ?hide ?s ?short_names ?l ?long_names x = OptParser.add opt_parser ?group ?help:h ?hide ?short_name:s ?long_name:l x; x

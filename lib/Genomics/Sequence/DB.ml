@@ -1,4 +1,4 @@
-open Batteries_uni
+open Batteries
 open Sqlite3EZ
 	
 let compress txt =
@@ -35,7 +35,7 @@ let assemble pieces lo hi =
 			assert (Buffer.length buf = hi-lo+1)
 			Buffer.contents buf
 		| _ -> failwith "Sequence.DB.query: discontiguous coverage of desired region"
-	loop lo (List.sort pieces)
+	loop lo (List.sort compare pieces)
 
 type t = {
 	h : Sqlite3EZ.db;
@@ -92,7 +92,7 @@ let query db ~id ~lo ~hi =
 				let pseq = match ar.(2) with Data.BLOB x -> uncompress x | _ -> failwith msg
 				(plo,phi,pseq)
 			let pieces =
-				List.sort
+				List.sort compare
 					statement_query
 						db.stmt_query
 						[| Data.TEXT id; Data.INT (Int64.of_int lo); Data.INT (Int64.of_int hi) |]

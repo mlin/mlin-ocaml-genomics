@@ -2,7 +2,7 @@
 @see <http://genome.ucsc.edu/FAQ/FAQformat#format5> MAF format (UCSC)
 *)
 
-open Batteries_uni
+open Batteries
 
 type sequence = {
 	src : string;

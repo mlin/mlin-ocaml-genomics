@@ -1,9 +1,8 @@
-open Batteries_uni
-open OptParse
+open Batteries
+open Extlib.OptParse
 open Printf
 open Sqlite3EZ
 open Genomics.Alignment
-module StringSet = Set.StringSet
 
 let opt_parser = OptParser.make ~usage:"%prog destination.mafdb source1.mafdb source2.mafdb ..." ()
 let opt ?group ?h ?hide ?s ?short_names ?l ?long_names x = OptParser.add opt_parser ?group ?help:h ?hide ?short_name:s ?long_name:l x; x
@@ -45,7 +44,7 @@ let sources fn =
 
 MAF.DB.with_db fn_dest (fun _ -> ())
 assert (is_mafdb fn_dest)
-let dest_sources = ref (StringSet.of_enum (List.enum (sources fn_dest)))
+let dest_sources = ref (Set.of_enum (List.enum (sources fn_dest)))
 let needs_analysis = ref false
 
 Sqlite3EZ.with_db fn_dest
@@ -60,11 +59,11 @@ Sqlite3EZ.with_db fn_dest
 							eprintf "not a MAFDB, skipping!\n"
 							flush stderr
 						else
-							let db_sources = StringSet.of_enum (List.enum (sources fn_db))
-							let conflicts = StringSet.inter !dest_sources db_sources
-							if Opt.get check_overlap && StringSet.cardinal conflicts > 0 then
-								failwith ("destination already contains these source sequences: " ^ (String.concat " " (List.of_enum (StringSet.enum conflicts))))
-							dest_sources := StringSet.union db_sources !dest_sources
+							let db_sources = Set.of_enum (List.enum (sources fn_db))
+							let conflicts = Set.intersect !dest_sources db_sources
+							if Opt.get check_overlap && Set.cardinal conflicts > 0 then
+								failwith ("destination already contains these source sequences: " ^ (String.concat " " (List.of_enum (Set.enum conflicts))))
+							dest_sources := Set.union db_sources !dest_sources
 
 							exec db (sprintf "ATTACH '%s' AS SOURCE" fn_db)
 							exec db "INSERT INTO MAFDB(src,src_start_0inc,src_end_0inc,block) SELECT src,src_start_0inc,src_end_0inc,block FROM SOURCE.MAFDB"

@@ -3,8 +3,8 @@ Ocaml.packs := ["Genomics"; "CamlPaml"];;
 Ocaml.pp :=	Some (fun file -> let o = (Filename.chop_extension file) ^ ".pp.ml" in Pipeline.command ["ocaml+twt"; file; "-o"; o ], [o]);;
 Ocaml.ocamlflags := ["-g"]
 --
-open Batteries_uni
-open OptParse
+open Batteries
+open Extlib.OptParse
 open CamlPaml
 open Sqlite3EZ
 open Printf

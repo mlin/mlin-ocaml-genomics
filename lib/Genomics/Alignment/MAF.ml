@@ -1,4 +1,4 @@
-open Batteries_uni
+open Batteries
 
 include MAF_Defs
 
@@ -106,7 +106,7 @@ let stitch ?(src_transform=identity) ?missing_char ?refseq ?order ~src ~lo ~hi b
 
 				to_splice := (ids,conseqs') :: !to_splice
 				pos := block_lo+desired_lo+desired_length
-		List.sort ~cmp:(fun b1 b2 -> compare b1.sequences.(0).start b2.sequences.(0).start) blocks
+		List.sort (fun b1 b2 -> compare b1.sequences.(0).start b2.sequences.(0).start) blocks
 		
 	if !pos-1 <> hi then
 		match refseq with

@@ -1,6 +1,6 @@
 (** individual alignment blocks *)
 
-open Batteries_uni
+open Batteries
 
 (** an alignment block is an array of strings, each with the same length *)
 type t = string array

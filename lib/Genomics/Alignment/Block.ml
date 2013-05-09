@@ -1,4 +1,4 @@
-open Batteries_uni
+open Batteries
 
 type refseq = string
 type t = string array
